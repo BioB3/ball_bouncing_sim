@@ -1,52 +1,29 @@
-import turtle, random
-
+import turtle
 class Ball:
-    def __init__(self, color, size, x, y):
-        self.__color = color
+    def __init__(self, xpos, ypos, vx, vy, ball_color, size, width, height) -> None:
+        self.__xpos = xpos
+        self.__ypos = ypos
+        self.__vx = vx
+        self.__vy = vy
+        self.__ball_color = ball_color
         self.__size = size
-        self.__x = x
-        self.__y = y
+        self.__canvas_width = width
+        self.__canvas_height = height
 
-    @property
-    def color(self):
-        return self.__color
-
-    @property
-    def size(self):
-        return self.__size
-
-    @property
-    def x(self):
-        return self.__x
-
-    @property
-    def y(self):
-        return self.__y
-
-    @property
-    def x_velo(self):
-        return self.x_velo
-
-    @property
-    def y_velo(self):
-        return self.y_velo
-    
-    def draw_circle(self):
+    def draw_circle(self, i):
         turtle.penup()
-        turtle.color(self.__color)
-        turtle.fillcolor(self.__color)
-        turtle.goto(self.__x, self.__y)
+        turtle.color(self.__ball_color[i])
+        turtle.fillcolor(self.__ball_color[i])
+        turtle.goto(self.__xpos[i], self.__ypos[i])
         turtle.pendown()
         turtle.begin_fill()
         turtle.circle(self.__size)
         turtle.end_fill()
-    
-    def move_circle(self, canvas_width, canvas_height):
-        __vx = random.randint(1, 0.01*canvas_width)
-        __vy = random.randint(1, 0.01*canvas_height)
-        self.__x += __vx
-        self.__y += __vy
-        if abs(self.__x + __vx) > (canvas_width - self.__size):
-            __vx = -__vx
-        if abs(self.__y + __vy) > (canvas_height - self.__size):
-            __vy = -__vy
+
+    def move_circle(self, i):
+        self.__xpos[i] += self.__vx[i]
+        self.__ypos[i] += self.__vy[i]
+        if abs(self.__xpos[i] + self.__vx[i]) > (self.__canvas_width - self.__size):
+            self.__vx[i] = -self.__vx[i]
+        if abs(self.__ypos[i] + self.__vy[i]) > (self.__canvas_height - self.__size):
+            self.__vy[i] = -self.__vy[i]
